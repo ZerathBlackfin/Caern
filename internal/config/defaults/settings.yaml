@@ -1,0 +1,6 @@
+# Options: docs/settings.md in the Caern repository
+
+title: Home
+theme: dusk
+columns: 6
+newTab: true

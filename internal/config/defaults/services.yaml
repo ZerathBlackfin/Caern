@@ -1,0 +1,48 @@
+# Options: docs/services.md in the Caern repository
+
+- name: Proxmox
+  url: https://proxmox.home.lan:8006
+  icon: proxmox
+  description: Hypervisor
+  size: 2x1
+- name: Portainer
+  url: http://portainer.home.lan:9000
+  icon: portainer
+- name: Home Assistant
+  url: http://homeassistant.home.lan:8123
+  icon: home-assistant
+
+- section: Media
+  items:
+    - name: Jellyfin
+      url: http://jellyfin.home.lan:8096
+      icon: jellyfin
+      description: Movies and shows
+      size: 2x2
+    - name: Sonarr
+      url: http://sonarr.home.lan:8989
+      icon: sonarr
+    - name: Radarr
+      url: http://radarr.home.lan:7878
+      icon: radarr
+    - name: Prowlarr
+      url: http://prowlarr.home.lan:9696
+      icon: prowlarr
+    - name: qBittorrent
+      url: http://qbittorrent.home.lan:8080
+      icon: qbittorrent
+
+- section: Network
+  items:
+    - name: Pi-hole
+      url: http://pihole.home.lan/admin
+      icon: pi-hole
+      description: DNS and ad blocking
+      size: 2x1
+    - name: Nginx Proxy Manager
+      url: http://npm.home.lan:81
+      icon: nginx-proxy-manager
+      size: 2x1
+    - name: Uptime Kuma
+      url: http://uptime.home.lan:3001
+      icon: uptime-kuma
