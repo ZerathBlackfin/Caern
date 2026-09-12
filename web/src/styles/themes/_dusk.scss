@@ -1,0 +1,27 @@
+$dusk: (
+  page-bg: #141a26,
+  wallpaper-scrim: rgba(13, 19, 31, 0.55),
+
+  text: #ece8df,
+  text-muted: #98a1b1,
+  accent: #fabe35,
+  error: #e5484d,
+  error-bg: rgba(229, 72, 77, 0.1),
+
+  surface: rgba(236, 232, 223, 0.045),
+  surface-hover: rgba(236, 232, 223, 0.085),
+  surface-glass: rgba(18, 26, 41, 0.58),
+  border: rgba(236, 232, 223, 0.08),
+  border-hover: rgba(236, 232, 223, 0.18),
+  icon-backdrop: rgba(236, 232, 223, 0.07),
+  code-bg: rgba(0, 0, 0, 0.25),
+
+  header-bg: rgba(13, 19, 31, 0.72),
+  header-border: rgba(236, 232, 223, 0.07),
+
+  radius-tile: 10px,
+  radius-icon: 7px,
+  radius-panel: 8px,
+
+  glass: blur(14px) saturate(1.2),
+);
