@@ -1,0 +1,13 @@
+services:
+  caern:
+    build: .
+    image: caern:latest
+    container_name: caern
+    ports:
+      - "${CAERN_PORT:-7676}:7676"
+    volumes:
+      - ./config:/config
+    environment:
+      PUID: "${PUID:-0}"
+      PGID: "${PGID:-0}"
+    restart: unless-stopped
