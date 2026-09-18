@@ -75,6 +75,7 @@ func TestParseTile(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := Tile{
+		ID:     "0",
 		Name:   "Sonarr",
 		URL:    "http://sonarr",
 		Icon:   dashboardIconsURL + "/svg/sonarr.svg",

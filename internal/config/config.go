@@ -60,11 +60,13 @@ type Page struct {
 }
 
 type Block struct {
+	ID      string `json:"id,omitempty"`
 	Section string `json:"section,omitempty"`
 	Tiles   []Tile `json:"tiles"`
 }
 
 type Tile struct {
+	ID          string `json:"id"`
 	Name        string `json:"name"`
 	URL         string `json:"url"`
 	Icon        string `json:"icon,omitempty"`
@@ -140,8 +142,9 @@ func (p *Page) setBackground(bg string, root *yaml.Node, problems *Problems) {
 func (p *Page) addItems(items []item, list *yaml.Node, newTab bool, problems *Problems) {
 	for i, it := range items {
 		node := child(list, i)
+		id := strconv.Itoa(i)
 		if it.Section == "" {
-			if tile, ok := it.tile(node, newTab, problems); ok {
+			if tile, ok := it.tile(id, node, newTab, problems); ok {
 				p.appendLoose(tile)
 			}
 			continue
@@ -150,7 +153,7 @@ func (p *Page) addItems(items []item, list *yaml.Node, newTab bool, problems *Pr
 		if it.Name != "" || it.URL != "" {
 			problems.add(servicesFile, node, it.Section, "a section can't also have a name or url")
 		}
-		block := Block{Section: it.Section, Tiles: []Tile{}}
+		block := Block{ID: id, Section: it.Section, Tiles: []Tile{}}
 		children := value(node, "items")
 		for j, c := range it.Items {
 			cnode := child(children, j)
@@ -158,7 +161,7 @@ func (p *Page) addItems(items []item, list *yaml.Node, newTab bool, problems *Pr
 				problems.add(servicesFile, cnode, c.Section, "sections can't be inside sections")
 				continue
 			}
-			if tile, ok := c.tile(cnode, newTab, problems); ok {
+			if tile, ok := c.tile(id+"."+strconv.Itoa(j), cnode, newTab, problems); ok {
 				block.Tiles = append(block.Tiles, tile)
 			}
 		}
@@ -174,7 +177,7 @@ func (p *Page) appendLoose(t Tile) {
 	p.Blocks = append(p.Blocks, Block{Tiles: []Tile{t}})
 }
 
-func (it *item) tile(node *yaml.Node, pageNewTab bool, problems *Problems) (Tile, bool) {
+func (it *item) tile(id string, node *yaml.Node, pageNewTab bool, problems *Problems) (Tile, bool) {
 	before := len(*problems)
 	report := func(format string, args ...any) {
 		problems.add(servicesFile, node, it.Name, format, args...)
@@ -205,6 +208,7 @@ func (it *item) tile(node *yaml.Node, pageNewTab bool, problems *Problems) (Tile
 		newTab = *it.NewTab
 	}
 	return Tile{
+		ID:          id,
 		Name:        it.Name,
 		URL:         it.URL,
 		Icon:        icon,

@@ -15,7 +15,10 @@ import (
 	"caern/internal/config"
 )
 
-const heartbeat = 30 * time.Second
+const (
+	heartbeat      = 30 * time.Second
+	maxLayoutBytes = 1 << 20
+)
 
 func New(store *config.Store, configDir string, ui fs.FS) http.Handler {
 	mux := http.NewServeMux()
@@ -23,10 +26,27 @@ func New(store *config.Store, configDir string, ui fs.FS) http.Handler {
 		w.WriteHeader(http.StatusNoContent)
 	})
 	mux.HandleFunc("GET /api/events", events(store))
+	mux.HandleFunc("POST /api/layout", saveLayout(store))
 	mux.Handle("GET /icons/", userFiles("/icons/", filepath.Join(configDir, "icons")))
 	mux.Handle("GET /images/", userFiles("/images/", filepath.Join(configDir, "images")))
 	mux.Handle("GET /", uiFiles(ui))
 	return mux
+}
+
+func saveLayout(store *config.Store) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var layout config.Layout
+		if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, maxLayoutBytes)).Decode(&layout); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		if err := store.SaveLayout(layout); err != nil {
+			slog.Error("could not save the layout", "err", err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.WriteHeader(http.StatusNoContent)
+	}
 }
 
 func events(store *config.Store) http.HandlerFunc {
