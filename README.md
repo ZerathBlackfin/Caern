@@ -2,7 +2,7 @@
 
 Self-hosted homepage for your services, configured in YAML.
 
-Write your services in a YAML file and Caern shows them as tiles, in sections if you want. Edit the file and the page updates itself, no restart.
+Write your services in a YAML file and Caern shows them as tiles, in sections if you want. Edit the file and the page updates itself, no restart. Tiles can also be moved and resized from the page, which writes the file back.
 
 Go backend, Svelte interface embedded in the binary, one container.
 
@@ -58,6 +58,8 @@ Your own icons go in `/config/icons` and background images in `/config/images`.
 Mount the whole folder rather than single files, otherwise changes made with some editors won't be picked up.
 
 If a file contains an error, Caern keeps showing the last valid version and lists the problems at the top of the page, with the file and line of each one.
+
+Caern has no authentication: anyone who can open the page can rearrange the tiles. Put it behind a reverse proxy if it is reachable from outside your network.
 
 ## User and group
 

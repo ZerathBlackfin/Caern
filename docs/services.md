@@ -35,6 +35,12 @@ A section has a title in `section` and its tiles in `items`. Sections can't be n
 
 Tiles can also sit outside sections, anywhere in the file.
 
+## Editing from the page
+
+The **Edit** button in the header turns the tiles into a board: drag one to move it, inside its section or into another, and pull the corner to resize it. **Save** writes the new order and sizes into `services.yaml`, **Cancel** drops them.
+
+Only the order and the `size` of the tiles change. Everything else, comments included, is left as it is.
+
 ## Layout
 
 Tiles are placed from left to right, then top to bottom. Smaller tiles fill the gaps left by larger ones.
