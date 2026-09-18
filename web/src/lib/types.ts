@@ -1,4 +1,5 @@
 export interface Tile {
+  id: string
   name: string
   url: string
   icon?: string
@@ -9,6 +10,7 @@ export interface Tile {
 }
 
 export interface Block {
+  id?: string
   section?: string
   tiles: Tile[]
 }

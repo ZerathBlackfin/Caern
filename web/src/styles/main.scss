@@ -38,6 +38,14 @@
   box-sizing: border-box;
 }
 
+:root.grabbing * {
+  cursor: grabbing !important;
+}
+
+:root.resizing * {
+  cursor: nwse-resize !important;
+}
+
 body {
   margin: 0;
   min-height: 100dvh;

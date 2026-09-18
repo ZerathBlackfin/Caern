@@ -3,6 +3,7 @@
   import Block from './lib/Block.svelte'
   import EmptyState from './lib/EmptyState.svelte'
   import Header from './lib/Header.svelte'
+  import { edit } from './lib/edit.svelte'
   import { connect, live } from './lib/live.svelte'
   import Problems from './lib/Problems.svelte'
   import Wallpaper from './lib/Wallpaper.svelte'
@@ -14,6 +15,7 @@
 
   const page = $derived(live.state?.page)
   const problems = $derived(live.state?.problems ?? [])
+  const blocks = $derived(edit.on ? edit.blocks : (page?.blocks ?? []))
 
   let width = $state(0)
   const fit = $derived(width ? Math.max(1, Math.floor(width / MIN_TILE_WIDTH)) : Infinity)
@@ -37,14 +39,17 @@
   {/if}
   <Header title={page.title} />
   <main class="container">
+    {#if edit.error}
+      <p class="save-error" role="alert">{edit.error}</p>
+    {/if}
     {#if problems.length}
       <Problems {problems} />
-    {:else if !page.blocks.length}
+    {:else if !blocks.length}
       <EmptyState />
     {/if}
     <div class="blocks" bind:clientWidth={width}>
-      {#each page.blocks as block}
-        <Block {block} {columns} />
+      {#each blocks as block, index (block.id ?? index)}
+        <Block {block} {index} {columns} />
       {/each}
     </div>
   </main>
@@ -70,6 +75,14 @@
 
   .offline {
     color: var(--text-muted);
+  }
+
+  .save-error {
+    margin-bottom: 24px;
+    padding: 10px 14px;
+    border-left: 2px solid var(--error);
+    border-radius: var(--radius-panel);
+    background: var(--error-bg);
   }
 
   .reconnecting {
