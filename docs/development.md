@@ -26,7 +26,7 @@ Useful when running Caern outside Docker.
 
 ## Releases
 
-Pushing to `main` builds the image and publishes it as `latest` on GHCR and Docker Hub. Pushing a `v1.2.3` tag publishes that version and creates the GitHub release.
+Every push runs the tests. Pushing a `v1.2.3` tag publishes the image as `1.2.3`, `1.2` and `latest` on GHCR and Docker Hub, then creates the GitHub release.
 
 Both need two repository secrets: `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`.
 
