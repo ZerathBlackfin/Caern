@@ -24,6 +24,12 @@ Useful when running Caern outside Docker.
 - `CAERN_API`: where `make dev` sends the Vite requests, `http://localhost:7676` by default
 - `PUID` and `PGID`: owner of `/config` in the image, root by default
 
+## Releases
+
+Pushing to `main` builds the image and publishes it as `latest` on GHCR and Docker Hub. Pushing a `v1.2.3` tag publishes that version and creates the GitHub release.
+
+Both need two repository secrets: `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`.
+
 ## Structure
 
 - `cmd/caern`: entry point
